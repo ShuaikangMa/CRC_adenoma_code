@@ -8,7 +8,7 @@ library(deSolve)
 library(orthopolynom)
 library(glmnet)
 
-data <- read.csv("genus.csv")
+data <- read.csv("rawdata.csv")
 rownames(data) <- data[,1]
 data <- data[,-1]
 h_data <- data[,c(grep("^H",colnames(data)))]
@@ -300,8 +300,6 @@ get_all_otus_result <- function(otu_data_bec,params,params1,type,trans = log10){
 }
 result_all <- get_all_otus_result(otu_data_bec = a_result,params = params,params1 = params1)
 # result_all <- get_all_otus_result(otu_data_bec = a_result,params = params,params1 = params1)
-# save(result_all, file = "h_result_all.RData")
-save(result_all, file = "a_result_all1.RData")
 
 power_equation_plot <- function(result, label = 10,title,n=10,params,params1){
   #result = result_all;label = 10;title = "A fit result";n = 10;params = params;params1 = params1
@@ -350,13 +348,12 @@ power_equation_plot <- function(result, label = 10,title,n=10,params,params1){
   }
   return(p)
 }
-# 生成图对象
+
 # p <- power_equation_plot(result_all, label = 10, title = "H fit result", params = params,params1 = params1)
 p <- power_equation_plot(result_all, label = 10, title = "A fit result", params = params,params1 = params1)
 
-# 保存图像
-# ggsave("C:/Users/Administrator/Desktop/H_fit_result1.png", plot = p, width = 30, height = 20)
-ggsave("C:/Users/Administrator/Desktop/A_fit_result1.png", plot = p, width = 30, height = 20)
+# ggsave("./H_fit_result1.png", plot = p, width = 30, height = 20)
+ggsave("./A_fit_result1.png", plot = p, width = 30, height = 20)
 
 
 data_match <- function(result1, result2){
@@ -554,7 +551,6 @@ bipower_equation_plot <- function(result, label = 10, n = 5, show.legend = TRUE,
   return(combined)
 }
 
-# 生成图对象
 plot_result <- bipower_equation_plot(
   match_data, 
   n = 4,
@@ -563,5 +559,5 @@ plot_result <- bipower_equation_plot(
   plot_ratio = c(3, 2)    # Main to residual height ratio
 )
 
-# 保存为PNG图像
 ggsave("bipower_equation_plot.png", plot = plot_result, width = 12, height = 5,limitsize = FALSE)
+
