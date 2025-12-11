@@ -267,12 +267,12 @@ def zero_inflated_log_likelihood(x, mu_params, sigma_params, zero_params, times)
     mask_zero = (x == 0).float()
     mask_nonzero = 1 - mask_zero
 
-    log_prob_zero = torch.log(torch.clamp(p0, min=1e-10))  # [n_features]
+    log_prob_zero = torch.log(torch.clamp(p0, min=1e-10))
 
     log_prob_nonzero = torch.log(torch.clamp(1 - p0, min=1e-10)) + normal_logpdf(x, mu,
-                                                                                 sigma)  # [n_samples, n_features]
+                                                                                 sigma)
 
-    loglik = torch.sum(mask_zero * log_prob_zero + mask_nonzero * log_prob_nonzero, dim=1)  # [n_samples]
+    loglik = torch.sum(mask_zero * log_prob_zero + mask_nonzero * log_prob_nonzero, dim=1)
     return loglik
 
 
