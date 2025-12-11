@@ -51,10 +51,6 @@ get_common_otus <- function(otu_data1, otu_data2) {
   return(list(otu_data1 = otu_data1_filtered, otu_data2 = otu_data2_filtered))
 }
 h_a_result <- get_common_otus(otu_data1 = h_data, otu_data2 = a_data)
-h_result <- h_a_result$otu_data1
-a_result <- h_a_result$otu_data2
-# write.csv(a_result, file = "a.csv")
-# write.csv(h_result, file = "h.csv")
 
 get_nozero_otus_result <- function(otu_data_bec,trans = log10){
 
@@ -143,7 +139,7 @@ result1 <- get_nozero_otus_result(otu_data_bec = a_result)
 params = result1$power_par
 
 get_zero_otus_result <- function(otu_data_bec,trans = log10){
-  #otu_data_bec = a_result;trans = log10
+
   otu_data = otu_data_bec
   data_filtered = otu_data[,order(colSums(otu_data))]
   site = order(colSums(data_filtered))
@@ -560,4 +556,5 @@ plot_result <- bipower_equation_plot(
 )
 
 ggsave("bipower_equation_plot.png", plot = plot_result, width = 12, height = 5,limitsize = FALSE)
+
 
