@@ -417,20 +417,6 @@ fun_clu_select <- function(result_fit, result_funclu, i){
   return(return_obj )
 }
 
-load("k_convert.RData")
-a4<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=4)
-h4<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=4)
-
-
-qdODE_parallel_result_a<-qdODE_parallel(k_convert$a, reduction = F, scaler = T,
-                                       thread = 12, maxit = 1e3,alpha = 1,gamma = 1,bc= 5,LOP_order=6,lx = "ode")
-qdODE_parallel_result_h<-qdODE_parallel(k_convert$b, reduction = F, scaler = T,
-                                        thread = 12, maxit = 1e3,alpha = 1,gamma = 1,bc= 5,LOP_order=6,lx = "ode")
-
-
-ode.M4_a = qdODE_parallel(a4,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
-ode.M4_h = qdODE_parallel(h4,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
-
 qdODEplot_convert <- function(result){
 
   data = result$predict
@@ -647,15 +633,3 @@ qdODE_plot_all <- function(result,fit_result,point,label = 10, show.legend = TRU
     )
   return(pp)
 }
-
-qdODE_a = qdODE_plot_all(qdODE_parallel_result_a,fit_result = a_fit_result,point = T,name = c("M11","M12","M13","M14","M15"))
-qdODE_h = qdODE_plot_all(qdODE_parallel_result_h,fit_result = h_fit_result,point = T,name = c("M11","M12","M13","M14","M15"))
-ggsave("a_model.png", plot = qdODE_a, width = 4, height = 10, dpi = 300
-       ,limitsize = FALSE,bg = "transparent")
-ggsave("h_model.png", plot = qdODE_h, width = 4, height = 10, dpi = 300
-       ,limitsize = FALSE,bg = "transparent")
-
-m4 = qdODE_plot_all(ode.M4_a,a_fit_result,point = T,name = c("Methylorubrum"))
-ggsave("a_M4_allMethylorubrum.png", plot = m4, width = 6, height = 4, dpi = 300,limitsize = FALSE)
-m4 = qdODE_plot_all(ode.M4_h,h_fit_result,point = T,name = c("Methylorubrum"))
-ggsave("h_M4_allMethylorubrum.png", plot = m4, width = 6, height = 4, dpi = 300,limitsize = FALSE)
