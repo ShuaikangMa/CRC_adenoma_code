@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # ======= Parameter settings =======
-SEQ_DIR="/root/autodl-tmp/seq"              # Root directory of SRA data, containing subdirectories starting with SRR
+SEQ_DIR="/root/tmp/seq"              # Root directory of SRA data, containing subdirectories starting with SRR
 OUT_DIR="./fastq_output"                    # Output directory for decompressed FASTQ files
-TMP_DIR="/root/autodl-tmp/middle"            # Temporary directory
+TMP_DIR="/root/tmp/middle"            # Temporary directory
 THREADS=64                                  # Number of threads used for each decompression (do not set too high)
 
 # ======= Prepare directories =======
@@ -44,7 +44,7 @@ echo "✓ All SRR datasets have been successfully decompressed"
 
 
 INPUT_DIR="./fastq_output"
-OUTPUT_DIR="/root/autodl-tmp/fastq_clean"
+OUTPUT_DIR="/root/tmp/fastq_clean"
 THREADS_PER_JOB=16
 MAX_PARALLEL_JOBS=10
 
@@ -87,9 +87,9 @@ echo "✓ All samples have been processed by fastp in parallel. Results saved in
 
 
 # === Parameter settings ===
-INPUT_DIR="/root/autodl-tmp/fastq_clean"               # Input FASTQ directory
-OUTPUT_DIR="/root/autodl-tmp/dehosted_fastq"           # Output directory
-BOWTIE2_INDEX="/root/autodl-tmp/index/genome_index"    # Bowtie2 index prefix (without .bt2 suffix)
+INPUT_DIR="/root/tmp/fastq_clean"               # Input FASTQ directory
+OUTPUT_DIR="/root/tmp/dehosted_fastq"           # Output directory
+BOWTIE2_INDEX="/root/tmp/index/genome_index"    # Bowtie2 index prefix (without .bt2 suffix)
 THREADS_PER_JOB=16                                     # Threads per process
 MAX_PARALLEL_JOBS=10                                   # Maximum number of parallel jobs (adjust based on CPU)
 
@@ -135,9 +135,9 @@ find "$INPUT_DIR" -name "*.fastq" | parallel -j "$MAX_PARALLEL_JOBS" process_sam
 echo "✓ All samples have completed host decontamination. Output directory: $OUTPUT_DIR"
 
 
-INPUT_DIR="/root/autodl-tmp/dehosted_fastq"
-OUTPUT_DIR="/root/autodl-tmp/end"
-DB_DIR="/root/autodl-tmp/database"
+INPUT_DIR="/root/tmp/dehosted_fastq"
+OUTPUT_DIR="/root/tmp/end"
+DB_DIR="/root/tmp/database"
 THREADS=64  # Adjust according to server resources
 
 mkdir -p "$OUTPUT_DIR"
