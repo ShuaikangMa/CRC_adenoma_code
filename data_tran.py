@@ -44,8 +44,8 @@ def merge_all_samples(folder):
     df = df.fillna(0).astype(int)
     return df
 
-folder_path = './down'  # 替换为你的文件夹路径
-output_csv = './merged_f_abundance.csv'
+folder_path = './down'
+output_csv = './merged_g_abundance.csv'
 
 merged_df = merge_all_samples(folder_path)
 merged_df.to_csv(output_csv)
