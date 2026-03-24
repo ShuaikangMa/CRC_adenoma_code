@@ -8,7 +8,7 @@ library(deSolve)
 library(orthopolynom)
 library(glmnet)
 
-data <- read.csv("rawdata.csv")
+data <- read.csv("merged_g_abundance.csv")
 rownames(data) <- data[,1]
 data <- data[,-1]
 h_data <- data[,c(grep("^H",colnames(data)))]
