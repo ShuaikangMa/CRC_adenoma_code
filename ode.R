@@ -320,7 +320,56 @@ qdODE_parallel <- function(result,alpha,gamma ,scaler,reduction = FALSE, thread 
                      relationship = relationship)
   return(return_obj)
 }
+                    
+ode.M1_a = qdODE_parallel(a1,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M1_h = qdODE_parallel(h1,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
 
+ode.M2_a = qdODE_parallel(a2,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M2_h = qdODE_parallel(h2,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+ode.M3_a = qdODE_parallel(a3,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M3_h = qdODE_parallel(h3,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+
+ode.M4_a = qdODE_parallel(a4,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M4_h = qdODE_parallel(h4,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+
+ode.M5_a = qdODE_parallel(a5,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M5_h = qdODE_parallel(h5,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+ode.M6_a = qdODE_parallel(a6,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M6_h = qdODE_parallel(h6,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+
+ode.M7_a = qdODE_parallel(a7,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M7_h = qdODE_parallel(h7,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+
+ode.M8_a = qdODE_parallel(a8,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M8_h = qdODE_parallel(h8,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+
+ode.M9_a = qdODE_parallel(a9,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M9_h = qdODE_parallel(h9,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+ode.M10_a = qdODE_parallel(a10,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M10_h = qdODE_parallel(h10,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+ode.M11_a = qdODE_parallel(a11,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M11_h = qdODE_parallel(h11,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+ode.M12_a = qdODE_parallel(a12,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M12_h = qdODE_parallel(h12,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+
+ode.M13_a = qdODE_parallel(a13,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = F,reduction = F)
+ode.M13_h = qdODE_parallel(h13,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = F,reduction = F)
+
+ode.M14_a = qdODE_parallel(a14,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = F,reduction = F)
+ode.M14_h = qdODE_parallel(h14,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = F,reduction = F)
+
+ode.M15_a = qdODE_parallel(a15,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
+ode.M15_h = qdODE_parallel(h15,alpha=1,gamma = 1,bc= 5,LOP_order=6,lx = "ode",scaler = T,reduction = F)
 get_interaction <- function(data, col,alpha,gamma, scaler,reduction = FALSE ){
 
   if (nrow(data)==2) {
@@ -411,7 +460,38 @@ fun_clu_select <- function(result_fit, result_funclu, i){
                      power_fit = mu.fit)
   return(return_obj )
 }
-
+                    
+a1<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=1)
+h1<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=1)
+a2<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=2)
+h2<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=2)
+a3<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=3)
+h3<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=3)
+a4<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=4)
+h4<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=4)
+a5<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=5)
+h5<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=5)
+a6<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=6)
+h6<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=6)
+a7<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=7)
+h7<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=7)
+a8<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=8)
+h8<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=8)
+a9<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=9)
+h9<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=9)
+a10<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=10)
+h10<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=10)
+a11<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=11)
+h11<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=11)
+a12<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=12)
+h12<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=12)
+a13<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=13)
+h13<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=13)
+a14<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=14)
+h14<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=14)
+a15<-fun_clu_select(result_fit = a_fit_result,result_funclu = k_convert$a,i=15)
+h15<-fun_clu_select(result_fit = h_fit_result,result_funclu = k_convert$b,i=15)
+                    
 qdODEplot_convert <- function(result){
 
   data = result$predict
