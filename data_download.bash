@@ -4,7 +4,7 @@
 SEQ_DIR="/root/tmp/seq"              # Root directory of SRA data, containing subdirectories starting with SRR
 OUT_DIR="./fastq_output"                    # Output directory for decompressed FASTQ files
 TMP_DIR="/root/tmp/middle"            # Temporary directory
-THREADS=64                                  # Number of threads used for each decompression (do not set too high)
+THREADS=64                                  # Number of threads used for each decompression
 
 # ======= Prepare directories =======
 mkdir -p "$OUT_DIR"
@@ -28,19 +28,19 @@ for srr_dir in "$SEQ_DIR"/SRR*; do
         --progress
 
       if [[ $? -eq 0 ]]; then
-        echo "✓ Decompression finished, removing directory: $srr_dir"
+        echo "Decompression finished, removing directory: $srr_dir"
         rm -rf "$srr_dir"
       else
-        echo "✗ Decompression failed, keeping directory: $srr_dir for debugging"
+        echo "Decompression failed, keeping directory: $srr_dir for debugging"
       fi
 
     else
-      echo "⚠ No .sra file found in directory $srr_dir, skipping"
+      echo "No .sra file found in directory $srr_dir, skipping"
     fi
   fi
 done
 
-echo "✓ All SRR datasets have been successfully decompressed"
+echo "All SRR datasets have been successfully decompressed"
 
 
 INPUT_DIR="./fastq_output"
@@ -72,10 +72,10 @@ process_sample() {
 
     # Check whether fastp executed successfully; if successful, delete original file
     if [ $? -eq 0 ]; then
-        echo "✓ $sample filtering completed, removing original file $fq"
+        echo "$sample filtering completed, removing original file $fq"
         rm -f "$fq"
     else
-        echo "✗ $sample filtering failed, keeping original file $fq for inspection"
+        echo "$sample filtering failed, keeping original file $fq for inspection"
     fi
 }
 
@@ -83,15 +83,15 @@ export -f process_sample
 
 find "$INPUT_DIR" -name "*.fastq" | parallel -j "$MAX_PARALLEL_JOBS" process_sample {}
 
-echo "✓ All samples have been processed by fastp in parallel. Results saved in: $OUTPUT_DIR"
+echo "All samples have been processed by fastp in parallel. Results saved in: $OUTPUT_DIR"
 
 
 # === Parameter settings ===
 INPUT_DIR="/root/tmp/fastq_clean"               # Input FASTQ directory
 OUTPUT_DIR="/root/tmp/dehosted_fastq"           # Output directory
-BOWTIE2_INDEX="/root/tmp/index/genome_index"    # Bowtie2 index prefix (without .bt2 suffix)
+BOWTIE2_INDEX="/root/tmp/index/genome_index"    # Bowtie2 index prefix
 THREADS_PER_JOB=16                                     # Threads per process
-MAX_PARALLEL_JOBS=10                                   # Maximum number of parallel jobs (adjust based on CPU)
+MAX_PARALLEL_JOBS=10                                   # Maximum number of parallel jobs
 
 mkdir -p "$OUTPUT_DIR"
 
@@ -124,7 +124,7 @@ process_sample() {
     # Optional: remove intermediate SAM file to save disk space
     rm "$OUTPUT_DIR/${sample}.sam"
 
-    echo "✓ $sample processing completed. Output: clean_${sample}.fastq"
+    echo "$sample processing completed. Output: clean_${sample}.fastq"
 }
 
 export -f process_sample
@@ -132,7 +132,7 @@ export -f process_sample
 # === Parallel processing of all FASTQ files ===
 find "$INPUT_DIR" -name "*.fastq" | parallel -j "$MAX_PARALLEL_JOBS" process_sample {}
 
-echo "✓ All samples have completed host decontamination. Output directory: $OUTPUT_DIR"
+echo "All samples have completed host decontamination. Output directory: $OUTPUT_DIR"
 
 
 INPUT_DIR="/root/tmp/dehosted_fastq"
@@ -162,7 +162,7 @@ for file in clean_clean_SRR*.fastq; do
     "$file"
 
   if [ $? -eq 0 ]; then
-    echo "✓ Kraken2 classification completed, starting Bracken..."
+    echo "Kraken2 classification completed, starting Bracken..."
 
     # Bracken abundance estimation
     bracken \
@@ -173,15 +173,15 @@ for file in clean_clean_SRR*.fastq; do
       -l S
 
     if [ $? -eq 0 ]; then
-      echo "✓ Bracken completed, removing original file $file ..."
+      echo "Bracken completed, removing original file $file ..."
       rm -f "$file"
     else
-      echo "✗ Bracken failed, keeping original file $file for troubleshooting"
+      echo "Bracken failed, keeping original file $file for troubleshooting"
     fi
 
   else
-    echo "✗ Kraken2 failed for $file"
+    echo "Kraken2 failed for $file"
   fi
 done
 
-echo "✓ All samples have completed taxonomic classification and abundance estimation. Results saved in: $OUTPUT_DIR"
+echo "All samples have completed taxonomic classification and abundance estimation. Results saved in: $OUTPUT_DIR"
